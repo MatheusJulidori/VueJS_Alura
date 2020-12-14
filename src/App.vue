@@ -11,27 +11,29 @@
 
 <script>
 export default {
-  name: 'app',
+
   data () {
     return {
       titulo: 'Alurapic',
-      fotos: [
-        {
-          url: 'https://conteudo.imguol.com.br/c/entretenimento/54/2020/04/28/cachorro-pug-1588098472110_v2_450x337.jpg',
-          alt: 'cachorro pug'
-        },
-        {
-          url: 'https://www.incorposul.com.br/wp-content/uploads/2019/08/cropped-cachorros-em-apartamentos-01-1024x576.jpg',
-          alt: 'cachorro bdf'
-        }
-      ]
+      fotos: []
     }
+  },
+
+  created(){
+    let promise = this.$http.get('http://localhost:3000/v1/fotos/')
+      .then(response => response.json())//Devolve a resposta em formato JSON
+      .then(fotos => this.fotos = fotos, error => console.log(error))//Pega o JSON e seleciona só a lista de fotos
   }
+    
+
 }
 </script>
 
 <style>
   li{
     list-style:none;
+  }
+  img{
+    width: 400px;
   }
 </style>
